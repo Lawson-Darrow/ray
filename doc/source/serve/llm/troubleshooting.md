@@ -77,19 +77,20 @@ app = build_openai_app({"llm_configs": [llm_config]})
 serve.run(app, blocking=True)
 ```
 
-### C/C++ runtime dependencies incompatibility
+## vLLM compatibility
 
-:::{admonition} Known issue
-Ray 2.55 installs vLLM 0.18.0. Depending on the conda environment, you may encounter incompatibilities with native runtime libraries (for example, `libstdc++`, `CXXABI`, `ICU`).
+Each Ray release is fully tested with a compatible vLLM version.
 
-In such cases, override just the ``libstdc++`` library from your conda environment with `LD_LIBRARY_PATH`:
+| Ray release | vLLM version |
+| ----------- | ------------ |
+| 2.56.0      | 0.20.0       |
+| 2.55.0      | 0.18.0       |
+| 2.54.0      | 0.15.0       |
+| 2.53.0      | 0.12.0       |
+| 2.52.0      | 0.11.0       |
+| 2.51.0      | 0.11.0       |
+| 2.50.0      | 0.10.2       |
 
-```shell
-mkdir -p "${CONDA_PREFIX}/lib-overrides"
-ln -sf "${CONDA_PREFIX}/lib/libstdc++.so.6" "${CONDA_PREFIX}/lib-overrides/libstdc++.so.6"
-export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib-overrides${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
-```
-:::
 
 ## Get help
 
